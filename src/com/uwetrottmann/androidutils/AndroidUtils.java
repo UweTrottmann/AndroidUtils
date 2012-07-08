@@ -53,10 +53,23 @@ public class AndroidUtils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }
 
+    /**
+     * Checks if {@link Environment}.MEDIA_MOUNTED is returned by
+     * {@code getExternalStorageState()} and therefore external storage is read-
+     * and writeable.
+     * 
+     * @return
+     */
     public static boolean isExtStorageAvailable() {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
+    /**
+     * Whether there is any network with a usable connection.
+     * 
+     * @param context
+     * @return
+     */
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -67,6 +80,12 @@ public class AndroidUtils {
         return false;
     }
 
+    /**
+     * Whether WiFi has an active, usable connection.
+     * 
+     * @param context
+     * @return
+     */
     public static boolean isWifiConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -78,6 +97,13 @@ public class AndroidUtils {
         return false;
     }
 
+    /**
+     * Copies the contents of one file to the other using {@link FileChannel}s.
+     * 
+     * @param src source {@link File}
+     * @param dst destination {@link File}
+     * @throws IOException
+     */
     public static void copyFile(File src, File dst) throws IOException {
         FileInputStream in = new FileInputStream(src);
         FileOutputStream out = new FileOutputStream(dst);
@@ -99,6 +125,15 @@ public class AndroidUtils {
         out.close();
     }
 
+    /**
+     * Copies data from one input stream to the other using a buffer of 8
+     * kilobyte in size.
+     * 
+     * @param input {@link InputStream}
+     * @param output {@link OutputStream}
+     * @return
+     * @throws IOException
+     */
     public static int copy(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int count = 0;
