@@ -17,9 +17,11 @@
 
 package com.uwetrottmann.androidutils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 
@@ -106,5 +108,24 @@ public class Utils {
             count += n;
         }
         return count;
+    }
+
+    /**
+     * Execute an {@link AsyncTask} on a thread pool.
+     * 
+     * @param task Task to execute.
+     * @param args Optional arguments to pass to
+     *            {@link AsyncTask#execute(Object[])}.
+     * @param <T> Task argument type.
+     */
+    @TargetApi(11)
+    public static <T> void executeAsyncTask(AsyncTask<T, ?, ?> task, T... args) {
+        // TODO figure out how to subclass abstract and generalized AsyncTask,
+        // then put this there
+        if (Utils.isHoneycombOrHigher()) {
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
+        } else {
+            task.execute(args);
+        }
     }
 }
