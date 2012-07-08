@@ -4,9 +4,9 @@ AndroidUtils for SeriesGuide
 
 Some commonly used helper methods for Android for things like
 
-* version detection
-* network state detection
-* external storage state detection
+* version detection like ```AndroidUtils.isJellyBeanOrHigher()```
+* network state detection like ```AndroidUtils.isNetworkConnected()```
+* external storage state detection like ```AndroidUtils.isExtStorageAvailable()```
 
 and some more SeriesGuide specific stuff.
 
