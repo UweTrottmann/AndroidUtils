@@ -33,7 +33,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 
-public class Utils {
+public class AndroidUtils {
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
 
@@ -122,7 +122,7 @@ public class Utils {
     public static <T> void executeAsyncTask(AsyncTask<T, ?, ?> task, T... args) {
         // TODO figure out how to subclass abstract and generalized AsyncTask,
         // then put this there
-        if (Utils.isHoneycombOrHigher()) {
+        if (AndroidUtils.isHoneycombOrHigher()) {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
         } else {
             task.execute(args);
