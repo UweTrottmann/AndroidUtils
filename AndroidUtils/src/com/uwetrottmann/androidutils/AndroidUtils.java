@@ -31,6 +31,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.channels.FileChannel;
 
 public class AndroidUtils {
@@ -48,7 +51,7 @@ public class AndroidUtils {
     public static boolean isHoneycombOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
-    
+
     public static boolean isGingerbreadOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
     }
@@ -165,6 +168,49 @@ public class AndroidUtils {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
         } else {
             task.execute(args);
+        }
+    }
+
+    /**
+     * Returns an {@link InputStream} using {@link HttpURLConnection} to connect
+     * to the given URL.
+     */
+    public static InputStream downloadUrl(String urlString) throws IOException {
+        HttpURLConnection conn = buildHttpUrlConnection(urlString);
+        conn.connect();
+
+        InputStream stream = conn.getInputStream();
+        return stream;
+    }
+
+    /**
+     * Returns an {@link HttpURLConnection} using sensible default settings for
+     * mobile and taking care of buggy behavior prior to Froyo.
+     */
+    public static HttpURLConnection buildHttpUrlConnection(String urlString)
+            throws MalformedURLException, IOException {
+        AndroidUtils.disableConnectionReuseIfNecessary();
+
+        URL url = new URL(urlString);
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(10000 /* milliseconds */);
+        conn.setConnectTimeout(15000 /* milliseconds */);
+        conn.setDoInput(true);
+        conn.setRequestMethod("GET");
+        return conn;
+    }
+
+    /**
+     * Prior to Android 2.2 (Froyo), {@link HttpURLConnection} had some
+     * frustrating bugs. In particular, calling close() on a readable
+     * InputStream could poison the connection pool. Work around this by
+     * disabling connection pooling.
+     */
+    public static void disableConnectionReuseIfNecessary() {
+        // HTTP connection reuse which was buggy pre-froyo
+        if (!isFroyoOrHigher()) {
+            System.setProperty("http.keepAlive", "false");
         }
     }
 }
