@@ -7,6 +7,7 @@ Some commonly used helper methods for Android for things like
 * version detection like ```AndroidUtils.isJellyBeanOrHigher()```
 * network state detection like ```AndroidUtils.isNetworkConnected()```
 * external storage state detection like ```AndroidUtils.isExtStorageAvailable()```
+* ```CheatSheet``` by Roman Nurik to display info toasts for any view (similar to action items)
 
 and some more SeriesGuide specific stuff.
 
