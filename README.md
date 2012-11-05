@@ -8,6 +8,7 @@ Some commonly used helper methods for Android for things like
 * network state detection like ```AndroidUtils.isNetworkConnected()```
 * external storage state detection like ```AndroidUtils.isExtStorageAvailable()```
 * ```CheatSheet``` by Roman Nurik to display info toasts for any view (similar to action items)
+* Custom ```AsyncTask``` by Google to allow executing on custom executor on all platform versions
 
 and some more SeriesGuide specific stuff.
 
