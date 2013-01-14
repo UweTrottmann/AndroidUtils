@@ -59,6 +59,10 @@ public class AndroidUtils {
     public static boolean isFroyoOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }
+    
+    public static boolean isGoogleTV(Context context){
+        return context.getPackageManager().hasSystemFeature("com.google.android.tv");
+    }
 
     /**
      * Checks if {@link Environment}.MEDIA_MOUNTED is returned by
