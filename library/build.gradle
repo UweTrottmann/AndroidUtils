@@ -9,16 +9,13 @@ buildscript {
 apply plugin: 'android-library'
 
 dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 android {
     compileSdkVersion 16
-    buildToolsVersion "16"
+    buildToolsVersion "17.0.0"
 
-    defaultConfig {
-        minSdkVersion 5
-        targetSdkVersion 16
-    }
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
