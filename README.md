@@ -1,6 +1,6 @@
 
-AndroidUtils for SeriesGuide
-========================
+AndroidUtils
+============
 
 Some commonly used helper methods for Android for things like
 
@@ -10,12 +10,12 @@ Some commonly used helper methods for Android for things like
 * ```CheatSheet``` by Roman Nurik to display info toasts for any view (similar to action items)
 * Custom ```AsyncTask``` by Google to allow executing on custom executor on all platform versions
 
-and some more SeriesGuide specific stuff.
+and more.
 
 License
 -------
 
-    Copyright 2012 Uwe Trottmann
+    Copyright 2012-2014 Uwe Trottmann
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
