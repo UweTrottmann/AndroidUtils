@@ -108,10 +108,10 @@ afterEvaluate { project ->
     }
 
     task androidJavadocs(type: Javadoc) {
-        // Ignore errors on missing library references
-        failOnError false
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+        classpath += project.android.libraryVariants.toList().first().javaCompile.outputs.files
     }
 
     task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
