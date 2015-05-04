@@ -58,22 +58,22 @@ afterEvaluate { project ->
                 }
 
                 pom.project {
-                    name 'AndroidUtils'
-                    packaging 'jar'
-                    description 'Little helpers for Android development.'
-                    url 'https://github.com/UweTrottmann/AndroidUtils'
+                    name "AndroidUtils"
+                    packaging "jar"
+                    description "Little helpers for Android development."
+                    url "https://github.com/UweTrottmann/AndroidUtils"
 
                     scm {
-                        url 'scm:git@github.com:UweTrottmann/AndroidUtils.git'
-                        connection 'scm:git@github.com:UweTrottmann/AndroidUtils.git'
-                        developerConnection 'scm:git@github.com:UweTrottmann/AndroidUtils.git'
+                        url "scm:git@github.com:UweTrottmann/AndroidUtils.git"
+                        connection "scm:git@github.com:UweTrottmann/AndroidUtils.git"
+                        developerConnection "scm:git@github.com:UweTrottmann/AndroidUtils.git"
                     }
 
                     licenses {
                         license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                            distribution 'repo'
+                            name "The Apache Software License, Version 2.0"
+                            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                            distribution "repo"
                         }
                     }
 
@@ -108,16 +108,19 @@ afterEvaluate { project ->
     }
 
     task androidJavadocs(type: Javadoc) {
+        // Ignore errors on missing library references
+        failOnError false
         source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
-    task androidJavadocsJar(type: Jar) {
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
         classifier = 'javadoc'
         from androidJavadocs.destinationDir
     }
 
     task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
+        classifier = "sources"
         from android.sourceSets.main.java.srcDirs
     }
 
