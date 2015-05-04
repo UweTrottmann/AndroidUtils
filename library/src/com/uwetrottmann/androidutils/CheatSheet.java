@@ -43,9 +43,9 @@ public class CheatSheet {
 
     /**
      * Sets up a cheat sheet (tooltip) for the given view by setting its
-     * {@link android.view.View.OnLongClickListener}. When the view is
+     * {@link View.OnLongClickListener}. When the view is
      * long-pressed, a {@link Toast} with the view's
-     * {@link android.view.View#getContentDescription() content description}
+     * {@link View#getContentDescription() content description}
      * will be shown either above (default) or below the view (if there isn't
      * room above it).
      * 
@@ -62,7 +62,7 @@ public class CheatSheet {
 
     /**
      * Sets up a cheat sheet (tooltip) for the given view by setting its
-     * {@link android.view.View.OnLongClickListener}. When the view is
+     * {@link View.OnLongClickListener}. When the view is
      * long-pressed, a {@link Toast} with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
      * 
@@ -81,7 +81,7 @@ public class CheatSheet {
 
     /**
      * Sets up a cheat sheet (tooltip) for the given view by setting its
-     * {@link android.view.View.OnLongClickListener}. When the view is
+     * {@link View.OnLongClickListener}. When the view is
      * long-pressed, a {@link Toast} with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
      * 
@@ -99,7 +99,7 @@ public class CheatSheet {
 
     /**
      * Removes the cheat sheet for the given view by removing the view's
-     * {@link android.view.View.OnLongClickListener}.
+     * {@link View.OnLongClickListener}.
      * 
      * @param view The view whose cheat sheet should be removed.
      */

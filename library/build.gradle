@@ -1,13 +1,18 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    compile rootProject.ext.libraries.supportv4
-    compile rootProject.ext.libraries.okhttp
+    compile 'com.android.support:support-v4:22.1.1'
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 22
+    buildToolsVersion '22.1.2'
+
+    defaultConfig {
+        minSdkVersion 9
+        versionCode 2
+        versionName "2.0.0"
+    }
 
     sourceSets {
         main {

@@ -19,6 +19,7 @@ package com.uwetrottmann.androidutils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -26,21 +27,22 @@ import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
-import com.squareup.okhttp.OkHttpClient;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 
 public class AndroidUtils {
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
+
+    public static boolean isLollipopOrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
 
     public static boolean isKitKatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -71,7 +73,8 @@ public class AndroidUtils {
     }
 
     public static boolean isGoogleTV(Context context) {
-        return context.getPackageManager().hasSystemFeature("com.google.android.tv");
+        PackageManager packageManager = context.getPackageManager();
+        return packageManager != null && packageManager.hasSystemFeature("com.google.android.tv");
     }
 
     /**
@@ -151,7 +154,7 @@ public class AndroidUtils {
     public static int copy(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
         int count = 0;
-        int n = 0;
+        int n;
         while (-1 != (n = input.read(buffer))) {
             output.write(buffer, 0, n);
             count += n;
@@ -166,8 +169,9 @@ public class AndroidUtils {
      * @param args Optional arguments to pass to {@link AsyncTask#execute(Object[])}.
      * @param <T>  Task argument type.
      */
+    @SafeVarargs
     @TargetApi(11)
-    public static <T> void executeAsyncTask(AsyncTask<T, ?, ?> task, T... args) {
+    public static <T> void executeOnPool(AsyncTask<T, ?, ?> task, T... args) {
         // TODO figure out how to subclass abstract and generalized AsyncTask,
         // then put this there
         if (AndroidUtils.isHoneycombOrHigher()) {
@@ -175,38 +179,6 @@ public class AndroidUtils {
         } else {
             task.execute(args);
         }
-    }
-
-    /**
-     * Returns an {@link InputStream} using {@link HttpURLConnection} to connect to the given URL.
-     */
-    public static InputStream downloadUrl(String urlString) throws IOException {
-        HttpURLConnection conn = buildHttpUrlConnection(urlString);
-        conn.connect();
-
-        InputStream stream = conn.getInputStream();
-        return stream;
-    }
-
-    /**
-     * Returns an {@link HttpURLConnection} using sensible default settings for mobile.
-     */
-    public static HttpURLConnection buildHttpUrlConnection(String urlString) throws IOException {
-        URL url = new URL(urlString);
-
-        OkHttpClient client = createOkHttpClient();
-
-        HttpURLConnection conn = client.open(url);
-        conn.setConnectTimeout(15 * 1000 /* milliseconds */);
-        conn.setReadTimeout(20 * 1000 /* milliseconds */);
-        return conn;
-    }
-
-    /**
-     * Create an OkHttpClient instance.
-     */
-    public static OkHttpClient createOkHttpClient() {
-        return new OkHttpClient();
     }
 
 }
