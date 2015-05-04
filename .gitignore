@@ -1,6 +1,7 @@
 # Specific files to exclude
 
 # Local configuration files (sdk path, etc)
+gradle.properties
 local.properties
 
 ### Linux
