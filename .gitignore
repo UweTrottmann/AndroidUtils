@@ -1,54 +1,33 @@
-#################
-## Eclipse
-#################
+# Specific files to exclude
 
-*.pydevproject
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
+# Local configuration files (sdk path, etc)
+gradle.properties
 local.properties
-.settings/
-.loadpath
 
-# External tool builders
-.externalToolBuilders/
+### Linux
+!.gitignore
+*~
 
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# CDT-specific
-.cproject
-
-# PDT-specific
-.buildpath
-
-############
-## Windows
-############
-
+### Windows
 # Windows image file caches
 Thumbs.db
+ehthumbs.db
 
 # Folder config file
 Desktop.ini
 
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-############
-## Android
-############
-# built application files
-*.apk
-*.ap_
+### OSX
+.DS_Store
 
-# files for the dex VM
-*.dex
+### IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
 
-# Java class files
-*.class
-
-# generated files
-gen/
+### Gradle
+.gradle/
+build/

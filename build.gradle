@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:1.2.2'
     }
 }
 
@@ -13,15 +13,3 @@ allprojects {
         mavenCentral()
     }
 }
-
-ext {
-    compileSdkVersion = 19
-    buildToolsVersion = '19.0.3'
-}
-
-ext.libraries = [
-
-        supportv4: 'com.android.support:support-v4:19.1.+',
-        okhttp: 'com.squareup.okhttp:okhttp:1.5.4'
-
-]

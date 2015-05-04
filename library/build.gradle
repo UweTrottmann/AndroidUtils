@@ -1,13 +1,19 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 dependencies {
-    compile rootProject.ext.libraries.supportv4
-    compile rootProject.ext.libraries.okhttp
+    compile 'com.android.support:support-v4:22.1.1'
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 22
+        versionCode 2
+        versionName "2.0.0"
+    }
 
     sourceSets {
         main {
@@ -24,5 +30,103 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+}
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+def artifact_id = "androidutils"
+def group_id = "com.uwetrottmann"
+group = "com.uwetrottmann"
+version = "2.0.0"
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                pom.groupId = group_id
+                pom.artifactId = artifact_id
+                pom.version = version
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
+
+                pom.project {
+                    name "AndroidUtils"
+                    packaging "jar"
+                    description "Little helpers for Android development."
+                    url "https://github.com/UweTrottmann/AndroidUtils"
+
+                    scm {
+                        url "scm:git@github.com:UweTrottmann/AndroidUtils.git"
+                        connection "scm:git@github.com:UweTrottmann/AndroidUtils.git"
+                        developerConnection "scm:git@github.com:UweTrottmann/AndroidUtils.git"
+                    }
+
+                    licenses {
+                        license {
+                            name "The Apache Software License, Version 2.0"
+                            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                            distribution "repo"
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id "uwetrottmann"
+                            name "Uwe Trottmann"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    task installArchives(type: Upload) {
+        description "Installs the artifacts to the local Maven repository."
+        configuration = configurations['archives']
+        repositories {
+            mavenDeployer {
+                pom.groupId = group_id
+                pom.artifactId = artifact_id
+                pom.version = version
+
+                repository url: "file://${System.properties['user.home']}/.m2/repository"
+            }
+        }
+    }
+
+    signing {
+        required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+        sign configurations.archives
+    }
+
+    task androidJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
+        classpath += project.android.libraryVariants.toList().first().javaCompile.outputs.files
+    }
+
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+        classifier = 'javadoc'
+        from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = "sources"
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    artifacts {
+        archives androidSourcesJar
+        archives androidJavadocsJar
     }
 }
