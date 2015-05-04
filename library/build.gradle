@@ -37,6 +37,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 def artifact_id = "androidutils"
+def group_id = "com.uwetrottmann"
 group = "com.uwetrottmann"
 version = "2.0.0"
 
@@ -46,7 +47,7 @@ afterEvaluate { project ->
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                pom.groupId = group
+                pom.groupId = group_id
                 pom.artifactId = artifact_id
                 pom.version = version
 
@@ -93,7 +94,7 @@ afterEvaluate { project ->
         configuration = configurations['archives']
         repositories {
             mavenDeployer {
-                pom.groupId = group
+                pom.groupId = group_id
                 pom.artifactId = artifact_id
                 pom.version = version
 
