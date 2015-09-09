@@ -25,6 +25,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import java.io.File;
@@ -36,16 +37,33 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 
+@SuppressWarnings("unused")
 public class AndroidUtils {
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
+
+    public static boolean isMarshmallowOrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    public static boolean isLollipopMR1OrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
+    }
 
     public static boolean isLollipopOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
+    public static boolean isKitKatWatchOrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
+    }
+
     public static boolean isKitKatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+    }
+
+    public static boolean isJellyBeanMR2OrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
     public static boolean isJellyBeanMR1OrHigher() {
@@ -54,6 +72,10 @@ public class AndroidUtils {
 
     public static boolean isJellyBeanOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+    }
+
+    public static boolean isICSMR1OrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
 
     public static boolean isICSOrHigher() {
@@ -66,10 +88,6 @@ public class AndroidUtils {
 
     public static boolean isGingerbreadOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
-    }
-
-    public static boolean isFroyoOrHigher() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
     }
 
     public static boolean isGoogleTV(Context context) {
@@ -85,19 +103,6 @@ public class AndroidUtils {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
-    /**
-     * Whether there is any network connected.
-     */
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager == null) {
-            return false;
-        }
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static boolean isRtlLayout() {
         if (AndroidUtils.isJellyBeanMR1OrHigher()) {
@@ -107,15 +112,50 @@ public class AndroidUtils {
         return false;
     }
 
-    /**
-     * Whether there is an active WiFi connection.
-     */
-    public static boolean isWifiConnected(Context context) {
+    @Nullable
+    private static NetworkInfo getActiveNetworkInfo(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiNetworkInfo = connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        return wifiNetworkInfo != null && wifiNetworkInfo.isConnected();
+        if (connectivityManager == null) {
+            return null;
+        }
+        return connectivityManager.getActiveNetworkInfo();
+    }
+
+    /**
+     * Whether there is an active network connection.
+     */
+    public static boolean isNetworkConnected(Context context) {
+        NetworkInfo activeNetworkInfo = getActiveNetworkInfo(context);
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    /**
+     * Whether there is an active network connection and it is via WiFi.
+     *
+     * <p>If you want to check whether to transmit large amounts of data, you may want to use {@link
+     * #isUnmeteredNetworkConnected(Context)}.
+     */
+    public static boolean isWifiConnected(Context context) {
+        NetworkInfo activeNetwork = getActiveNetworkInfo(context);
+        return activeNetwork != null && activeNetwork.isConnected()
+                && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
+    }
+
+    /**
+     * Whether there is an active network connection and it is not metered, e.g. so large amounts of
+     * data may be transmitted.
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static boolean isUnmeteredNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        }
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected()
+                && !connectivityManager.isActiveNetworkMetered();
     }
 
     /**
@@ -148,7 +188,7 @@ public class AndroidUtils {
     /**
      * Copies data from one input stream to the other using a buffer of 8 kilobyte in size.
      *
-     * @param input  {@link InputStream}
+     * @param input {@link InputStream}
      * @param output {@link OutputStream}
      */
     public static int copy(InputStream input, OutputStream output) throws IOException {
@@ -167,7 +207,7 @@ public class AndroidUtils {
      *
      * @param task Task to execute.
      * @param args Optional arguments to pass to {@link AsyncTask#execute(Object[])}.
-     * @param <T>  Task argument type.
+     * @param <T> Task argument type.
      */
     @SafeVarargs
     @TargetApi(11)
@@ -180,5 +220,4 @@ public class AndroidUtils {
             task.execute(args);
         }
     }
-
 }
