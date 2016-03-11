@@ -116,8 +116,7 @@ public class CheatSheet {
         }
 
         final int[] screenPos = new int[2]; // origin is device display
-        final Rect displayFrame = new Rect(); // includes decorations (e.g.
-                                              // status bar)
+        final Rect displayFrame = new Rect(); // includes decorations (e.g. status bar)
         view.getLocationOnScreen(screenPos);
         view.getWindowVisibleDisplayFrame(displayFrame);
 
@@ -140,9 +139,11 @@ public class CheatSheet {
         } else {
             // Show above
             // Offsets are after decorations (e.g. status bar) are factored in
-            cheatSheet.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL,
+            // NOTE: We can't use Gravity.BOTTOM because when the keyboard is up
+            // its height isn't factored in.
+            cheatSheet.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL,
                     viewCenterX - screenWidth / 2,
-                    displayFrame.bottom - screenPos[1]);
+                    screenPos[1] - displayFrame.top - estimatedToastHeight);
         }
 
         cheatSheet.show();
