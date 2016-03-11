@@ -19,10 +19,8 @@ package com.uwetrottmann.androidutils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -35,60 +33,66 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 
-@SuppressWarnings("unused")
 public class AndroidUtils {
 
+    @Deprecated
     public static boolean isMarshmallowOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
+    @Deprecated
     public static boolean isLollipopMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
+    @Deprecated
     public static boolean isLollipopOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
+    @Deprecated
     public static boolean isKitKatWatchOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
     }
 
+    @Deprecated
     public static boolean isKitKatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
+    @Deprecated
     public static boolean isJellyBeanMR2OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
+    @Deprecated
     public static boolean isJellyBeanMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
+    @Deprecated
     public static boolean isJellyBeanOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
+    @Deprecated
     public static boolean isICSMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
 
+    @Deprecated
     public static boolean isICSOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
+    @Deprecated
     public static boolean isHoneycombOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
 
+    @Deprecated
     public static boolean isGingerbreadOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
-    }
-
-    public static boolean isGoogleTV(Context context) {
-        PackageManager packageManager = context.getPackageManager();
-        return packageManager != null && packageManager.hasSystemFeature("com.google.android.tv");
     }
 
     /**
@@ -99,9 +103,13 @@ public class AndroidUtils {
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    /**
+     * Returns true if the current layout direction is {@link View#LAYOUT_DIRECTION_RTL}.
+     *
+     * <p>This always returns false on versions below JELLY_BEAN_MR1.
+     */
     public static boolean isRtlLayout() {
-        if (AndroidUtils.isJellyBeanMR1OrHigher()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             int direction = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
             return direction == View.LAYOUT_DIRECTION_RTL;
         }
@@ -175,25 +183,6 @@ public class AndroidUtils {
         } finally {
             in.close();
             out.close();
-        }
-    }
-
-    /**
-     * Execute an {@link AsyncTask} on a thread pool.
-     *
-     * @param task Task to execute.
-     * @param args Optional arguments to pass to {@link AsyncTask#execute(Object[])}.
-     * @param <T> Task argument type.
-     */
-    @SafeVarargs
-    @TargetApi(11)
-    public static <T> void executeOnPool(AsyncTask<T, ?, ?> task, T... args) {
-        // TODO figure out how to subclass abstract and generalized AsyncTask,
-        // then put this there
-        if (AndroidUtils.isHoneycombOrHigher()) {
-            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, args);
-        } else {
-            task.execute(args);
         }
     }
 }
