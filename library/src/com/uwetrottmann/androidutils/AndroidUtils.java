@@ -32,15 +32,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 
 @SuppressWarnings("unused")
 public class AndroidUtils {
-
-    private static final int DEFAULT_BUFFER_SIZE = 8192;
 
     public static boolean isMarshmallowOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
@@ -174,37 +170,12 @@ public class AndroidUtils {
         FileOutputStream out = new FileOutputStream(dst);
         FileChannel inChannel = in.getChannel();
         FileChannel outChannel = out.getChannel();
-
         try {
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } finally {
-            if (inChannel != null) {
-                inChannel.close();
-            }
-            if (outChannel != null) {
-                outChannel.close();
-            }
+            in.close();
+            out.close();
         }
-
-        in.close();
-        out.close();
-    }
-
-    /**
-     * Copies data from one input stream to the other using a buffer of 8 kilobyte in size.
-     *
-     * @param input {@link InputStream}
-     * @param output {@link OutputStream}
-     */
-    public static int copy(InputStream input, OutputStream output) throws IOException {
-        byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-        int count = 0;
-        int n;
-        while (-1 != (n = input.read(buffer))) {
-            output.write(buffer, 0, n);
-            count += n;
-        }
-        return count;
     }
 
     /**
