@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-group = "com.uwetrottmann"
+group = "com.uwetrottmann.androidutils"
 archivesBaseName = "androidutils"
 version = "2.2.0"
 
