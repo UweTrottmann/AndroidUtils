@@ -112,10 +112,16 @@ public class AndroidUtils {
         return false;
     }
 
+    private static ConnectivityManager getConnectivityManager(Context context) {
+        // use application context to avoid leaking any activity
+        // https://code.google.com/p/android/issues/detail?id=198852
+        return (ConnectivityManager) context.getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+    }
+
     @Nullable
     private static NetworkInfo getActiveNetworkInfo(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = getConnectivityManager(context);
         if (connectivityManager == null) {
             return null;
         }
@@ -148,8 +154,7 @@ public class AndroidUtils {
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean isUnmeteredNetworkConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = getConnectivityManager(context);
         if (connectivityManager == null) {
             return false;
         }
