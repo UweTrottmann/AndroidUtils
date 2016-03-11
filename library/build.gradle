@@ -4,7 +4,7 @@ apply plugin: 'signing'
 
 group = "com.uwetrottmann"
 archivesBaseName = "androidutils"
-version = "2.1.0"
+version = "2.2.0"
 
 dependencies {
     compile 'com.android.support:support-v4:23.2.1'

@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+2.2.0 (2016-03-11)
+------------------
+
+- Removed `executeOnPool()`, use `android.support.v4.os.AsyncTaskCompat` instead.
+- Deprecated version helpers, use Studio quick fix to insert `Build.VERSION.SDK_INT` condition instead.
+
 2.1.0 (2015-09-09)
 ------------------
 
