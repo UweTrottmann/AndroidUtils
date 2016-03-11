@@ -1,4 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = "com.uwetrottmann"
+archivesBaseName = "androidutils"
+version = "2.1.0"
 
 dependencies {
     compile 'com.android.support:support-v4:23.2.1'
@@ -12,7 +18,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 2
-        versionName "2.1.0"
+        versionName project.version
     }
 
     sourceSets {
@@ -33,29 +39,17 @@ android {
     }
 }
 
-apply plugin: 'maven'
-apply plugin: 'signing'
-
-def artifact_id = "androidutils"
-def group_id = "com.uwetrottmann"
-group = "com.uwetrottmann"
-version = "2.1.0"
-
 afterEvaluate { project ->
     uploadArchives {
         repositories {
             mavenDeployer {
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-                pom.groupId = group_id
-                pom.artifactId = artifact_id
-                pom.version = version
-
                 repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
                 }
                 snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
                 }
 
                 pom.project {
@@ -74,7 +68,6 @@ afterEvaluate { project ->
                         license {
                             name "The Apache Software License, Version 2.0"
                             url "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                            distribution "repo"
                         }
                     }
 
@@ -94,10 +87,6 @@ afterEvaluate { project ->
         configuration = configurations['archives']
         repositories {
             mavenDeployer {
-                pom.groupId = group_id
-                pom.artifactId = artifact_id
-                pom.version = version
-
                 repository url: "file://${System.properties['user.home']}/.m2/repository"
             }
         }
