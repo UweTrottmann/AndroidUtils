@@ -34,7 +34,7 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
                 onReleaseResources(items);
             }
         }
-        T oldItems = items;
+        T oldItems = mItems;
         mItems = items;
 
         if (isStarted()) {
