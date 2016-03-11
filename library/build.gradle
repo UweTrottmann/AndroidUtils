@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
 
 group = "com.uwetrottmann.androidutils"
 archivesBaseName = "androidutils"
@@ -119,3 +120,8 @@ afterEvaluate { project ->
         archives androidJavadocsJar
     }
 }
+
+nexusStaging {
+    packageGroup = "com.uwetrottmann"
+}
+
