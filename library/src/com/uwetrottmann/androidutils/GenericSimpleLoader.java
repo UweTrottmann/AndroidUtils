@@ -3,44 +3,49 @@ package com.uwetrottmann.androidutils;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-
 import java.util.List;
 
 /**
- * A generic {@link AsyncTaskLoader} loading any {@link List} or single object
- * of things (beware for e.g. Cursors you need to override onReleaseResources in
- * a meaningful way). It takes care of delivering and resetting results, so you
- * only have to implement <code>loadInBackground()</code>.
+ * A generic {@link AsyncTaskLoader} suitable for loading any single object or {@link List} of
+ * objects. It takes care of delivering and resetting results, so you only have to implement
+ * <code>loadInBackground()</code>.
+ *
+ * <p>To automatically reload data on content changes implement some form of content observer which
+ * just calls this loaders {@link #onContentChanged()} method if data has changed.
+ *
+ * <p>Make sure to override {@link #onReleaseResources} in a meaningful way to clean up resources
+ * associated with the actively loaded data set. If you have to use a {@link
+ * android.database.Cursor} you should probably use {@link android.support.v4.content.CursorLoader}
+ * instead.
  */
 public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
 
-    protected T mItems;
+    protected T items;
 
     public GenericSimpleLoader(Context context) {
         super(context);
     }
 
     /**
-     * Called when there is new data to deliver to the client. The super class
-     * will take care of delivering it; the implementation here just adds a
-     * little more logic.
+     * Called when there is new data to deliver to the client. The super class will take care of
+     * delivering it; the implementation here just adds a little more logic.
      */
     @Override
-    public void deliverResult(T items) {
+    public void deliverResult(T newItems) {
         if (isReset()) {
             // An async query came in while the loader is stopped. We
             // don't need the result.
-            if (items != null) {
-                onReleaseResources(items);
+            if (newItems != null) {
+                onReleaseResources(newItems);
             }
         }
-        T oldItems = mItems;
-        mItems = items;
+        T oldItems = this.items;
+        this.items = newItems;
 
         if (isStarted()) {
             // If the Loader is currently started, we can immediately
             // deliver its results.
-            super.deliverResult(items);
+            super.deliverResult(newItems);
         }
 
         if (oldItems != null) {
@@ -50,9 +55,10 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
 
     @Override
     protected void onStartLoading() {
-        if (mItems != null) {
-            deliverResult(mItems);
-        } else {
+        if (items != null) {
+            deliverResult(items);
+        }
+        if (takeContentChanged() || items == null) {
             forceLoad();
         }
     }
@@ -71,9 +77,9 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
      */
     @Override
     public void onCanceled(T items) {
-        super.onCanceled(items);
-
-        onReleaseResources(items);
+        if (items != null) {
+            onReleaseResources(items);
+        }
     }
 
     /**
@@ -87,19 +93,18 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
         onStopLoading();
 
         // At this point we can release resources
-        if (mItems != null) {
-            onReleaseResources(mItems);
-            mItems = null;
+        if (items != null) {
+            onReleaseResources(items);
+            items = null;
         }
     }
 
     /**
-     * Helper function to take care of releasing resources associated with an
-     * actively loaded data set.
+     * Helper function to take care of releasing resources associated with an actively loaded data
+     * set.
      */
     protected void onReleaseResources(T items) {
         // For simple items there is nothing to do. For something
         // like a Cursor, we would close it here.
     }
-
 }
