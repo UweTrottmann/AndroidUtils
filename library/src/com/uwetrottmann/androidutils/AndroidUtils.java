@@ -35,62 +35,50 @@ import java.util.Locale;
 
 public class AndroidUtils {
 
-    @Deprecated
     public static boolean isMarshmallowOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    @Deprecated
     public static boolean isLollipopMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
-    @Deprecated
     public static boolean isLollipopOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
-    @Deprecated
     public static boolean isKitKatWatchOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
     }
 
-    @Deprecated
     public static boolean isKitKatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
-    @Deprecated
     public static boolean isJellyBeanMR2OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
-    @Deprecated
     public static boolean isJellyBeanMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
-    @Deprecated
     public static boolean isJellyBeanOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
-    @Deprecated
     public static boolean isICSMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
 
-    @Deprecated
     public static boolean isICSOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
-    @Deprecated
     public static boolean isHoneycombOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     }
 
-    @Deprecated
     public static boolean isGingerbreadOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
     }
