@@ -1,4 +1,3 @@
-
 package com.uwetrottmann.androidutils;
 
 import android.content.Context;
