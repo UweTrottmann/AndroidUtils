@@ -7,10 +7,6 @@ group = "com.uwetrottmann.androidutils"
 archivesBaseName = "androidutils"
 version = "2.2.1"
 
-dependencies {
-    compile 'com.android.support:support-core-utils:25.3.1'
-}
-
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.3'
@@ -21,23 +17,14 @@ android {
         versionCode 2
         versionName project.version
     }
+}
 
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            res.srcDirs = ['res']
-        }
+dependencies {
+    compile 'com.android.support:support-core-utils:25.3.1'
+}
 
-        // Move the build types to build-types/<type>
-        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
-        // This moves them out of them default location under src/<type>/... which would
-        // conflict with src/ being used by the main source set.
-        // Adding new build types or product flavors should be accompanied
-        // by a similar customization.
-        debug.setRoot('build-types/debug')
-        release.setRoot('build-types/release')
-    }
+nexusStaging {
+    packageGroup = "com.uwetrottmann"
 }
 
 afterEvaluate { project ->
@@ -120,8 +107,3 @@ afterEvaluate { project ->
         archives androidJavadocsJar
     }
 }
-
-nexusStaging {
-    packageGroup = "com.uwetrottmann"
-}
-
