@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 2.3.0
+_2017-05-24_
+
+- Update to `support-core-utils:25.3.1`. No longer depend on whole `support-v4`.
+- `minSdk=15` and `targetSdk=25`, added version helper methods for N and N MR1.
+
 ## 2.2.1
 _2016-05-26_
 
