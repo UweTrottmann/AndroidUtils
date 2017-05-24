@@ -48,7 +48,7 @@ public class CheatSheet {
      * {@link View#getContentDescription() content description}
      * will be shown either above (default) or below the view (if there isn't
      * room above it).
-     * 
+     *
      * @param view The view to add a cheat sheet for.
      */
     public static void setup(View view) {
@@ -65,10 +65,9 @@ public class CheatSheet {
      * {@link View.OnLongClickListener}. When the view is
      * long-pressed, a {@link Toast} with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
-     * 
-     * @param view The view to add a cheat sheet for.
-     * @param textResId The string resource containing the text to show on
-     *            long-press.
+     *
+     * @param view      The view to add a cheat sheet for.
+     * @param textResId The string resource containing the text to show on long-press.
      */
     public static void setup(View view, final int textResId) {
         view.setOnLongClickListener(new View.OnLongClickListener() {
@@ -84,7 +83,7 @@ public class CheatSheet {
      * {@link View.OnLongClickListener}. When the view is
      * long-pressed, a {@link Toast} with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
-     * 
+     *
      * @param view The view to add a cheat sheet for.
      * @param text The text to show on long-press.
      */
@@ -100,7 +99,7 @@ public class CheatSheet {
     /**
      * Removes the cheat sheet for the given view by removing the view's
      * {@link View.OnLongClickListener}.
-     * 
+     *
      * @param view The view whose cheat sheet should be removed.
      */
     public static void remove(final View view) {
