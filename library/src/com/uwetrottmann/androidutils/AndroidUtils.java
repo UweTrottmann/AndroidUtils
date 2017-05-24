@@ -18,6 +18,14 @@ import java.util.Locale;
 
 public class AndroidUtils {
 
+    public static boolean isNougatMR1OrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+    }
+
+    public static boolean isNougatOrHigher() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    }
+
     public static boolean isMarshmallowOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
@@ -52,18 +60,6 @@ public class AndroidUtils {
 
     public static boolean isICSMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
-    }
-
-    public static boolean isICSOrHigher() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
-    }
-
-    public static boolean isHoneycombOrHigher() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
-    }
-
-    public static boolean isGingerbreadOrHigher() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
     }
 
     /**
