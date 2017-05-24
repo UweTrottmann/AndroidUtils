@@ -8,7 +8,7 @@ Some helper code for Android app development.
 * `CheatSheet` by [Roman Nurik][1] to display info toasts for any view (similar to action items).
 * `GenericSimpleLoader` offers a basic `AsyncTaskLoader` implementation to load simple objects or a list of objects.
 
-<a href="https://search.maven.org/#search%7Cga%7C1%7Candroidutils"><img src="https://img.shields.io/maven-central/v/com.uwetrottmann/androidutils.svg"></a>
+<a href="https://search.maven.org/#search%7Cga%7C1%7Candroidutils"><img src="https://img.shields.io/maven-central/v/com.uwetrottmann.androidutils/androidutils.svg?style=flat-square"></a>
 
 License
 -------
