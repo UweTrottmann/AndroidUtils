@@ -5,7 +5,7 @@ apply plugin: 'io.codearte.nexus-staging'
 
 group = "com.uwetrottmann.androidutils"
 archivesBaseName = "androidutils"
-version = "2.3.0"
+version = "2.3.1"
 
 android {
     compileSdkVersion 26

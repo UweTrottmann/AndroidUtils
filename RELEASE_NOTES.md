@@ -1,6 +1,12 @@
 Release Notes
 =============
 
+## 2.3.1
+_2017-08-03_
+
+- `AndroidUtils.copyFile` ensures both streams are closed, no longer throws if closing streams fails. Thanks @NightlyNexus!
+- Depend on Android Support library 26.0.0.
+
 ## 2.3.0
 _2017-05-24_
 
