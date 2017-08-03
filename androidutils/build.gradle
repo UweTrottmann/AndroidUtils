@@ -8,8 +8,8 @@ archivesBaseName = "androidutils"
 version = "2.3.0"
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 15
