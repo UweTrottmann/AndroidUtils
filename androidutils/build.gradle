@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-core-utils:25.3.1'
+    compile 'com.android.support:support-core-utils:26.0.0'
 }
 
 nexusStaging {
