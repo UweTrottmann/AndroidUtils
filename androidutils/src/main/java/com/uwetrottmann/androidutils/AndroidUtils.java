@@ -149,8 +149,14 @@ public class AndroidUtils {
         try {
             inChannel.transferTo(0, inChannel.size(), outChannel);
         } finally {
-            in.close();
-            out.close();
+            try {
+                in.close();
+            } catch (IOException ignored) {
+            }
+            try {
+                out.close();
+            } catch (IOException ignored) {
+            }
         }
     }
 }
