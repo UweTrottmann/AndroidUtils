@@ -1,9 +1,10 @@
 package com.uwetrottmann.androidutils;
 
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.List;
+
+import androidx.loader.content.AsyncTaskLoader;
 
 /**
  * A generic {@link AsyncTaskLoader} suitable for loading any single object or {@link List} of
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * <p>Make sure to override {@link #onReleaseResources} in a meaningful way to clean up resources
  * associated with the actively loaded data set. If you have to use a {@link
- * android.database.Cursor} you should probably use {@link android.support.v4.content.CursorLoader}
+ * android.database.Cursor} you should probably use {@link androidx.loader.content.CursorLoader}
  * instead.
  */
 public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
