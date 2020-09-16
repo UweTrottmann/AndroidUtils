@@ -9,7 +9,6 @@ version = "2.3.1"
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 15
@@ -20,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-core-utils:26.0.0'
+    implementation 'com.android.support:support-core-utils:26.0.0'
 }
 
 nexusStaging {
@@ -34,15 +33,26 @@ afterEvaluate { project ->
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
                 repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                    if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME') && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
+                        authentication(userName: SONATYPE_NEXUS_USERNAME, password: SONATYPE_NEXUS_PASSWORD)
+                        println "NOTE: Release artifacts will be signed."
+                    } else {
+                        println "WARNING: Release artifacts will not be signed."
+                    }
                 }
+
                 snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                    if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME') && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
+                        authentication(userName: SONATYPE_NEXUS_USERNAME, password: SONATYPE_NEXUS_PASSWORD)
+                        println "NOTE: Snapshot artifacts will be signed."
+                    } else {
+                        println "WARNING: Snapshot artifacts will not be signed."
+                    }
                 }
 
                 pom.project {
                     name "AndroidUtils"
-                    packaging "jar"
+                    packaging "aar"
                     description "Little helpers for Android development."
                     url "https://github.com/UweTrottmann/AndroidUtils"
 
@@ -54,8 +64,8 @@ afterEvaluate { project ->
 
                     licenses {
                         license {
-                            name "Public Domain"
-                            url "http://unlicense.org/"
+                            name "The Apache Software License, Version 2.0"
+                            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
                         }
                     }
 
