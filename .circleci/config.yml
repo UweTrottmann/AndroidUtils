@@ -35,7 +35,7 @@ jobs:
           # To speed up lint check only run for release variant.
           # Source: https://groups.google.com/forum/#!topic/lint-dev/RGTvK_uHQGQ
           name: Run Lint
-          command: ./gradlew :androidutils:lintPureRelease -Dorg.gradle.jvmargs="-Xmx1024M"
+          command: ./gradlew :androidutils:lintRelease -Dorg.gradle.jvmargs="-Xmx1024M"
       - store_artifacts:
           path: androidutils/build/reports/lint-results-release.html
           destination: lint-results-release.html
