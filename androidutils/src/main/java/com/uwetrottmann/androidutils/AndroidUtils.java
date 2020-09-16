@@ -1,5 +1,6 @@
 package com.uwetrottmann.androidutils;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -17,6 +18,7 @@ import java.nio.channels.FileChannel;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
 
 public class AndroidUtils {
 
@@ -92,6 +94,7 @@ public class AndroidUtils {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @Nullable
     private static NetworkInfo getActiveNetworkInfo(Context context) {
         ConnectivityManager connectivityManager = getConnectivityManager(context);
@@ -104,6 +107,7 @@ public class AndroidUtils {
     /**
      * Whether there is an active network connection.
      */
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     public static boolean isNetworkConnected(Context context) {
         NetworkInfo activeNetworkInfo = getActiveNetworkInfo(context);
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
@@ -115,6 +119,7 @@ public class AndroidUtils {
      * <p>If you want to check whether to transmit large amounts of data, you may want to use {@link
      * #isUnmeteredNetworkConnected(Context)}.
      */
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     public static boolean isWifiConnected(Context context) {
         NetworkInfo activeNetwork = getActiveNetworkInfo(context);
         return activeNetwork != null && activeNetwork.isConnected()
@@ -125,6 +130,7 @@ public class AndroidUtils {
      * Whether there is an active network connection and it is not metered, e.g. so large amounts of
      * data may be transmitted.
      */
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean isUnmeteredNetworkConnected(Context context) {
         ConnectivityManager connectivityManager = getConnectivityManager(context);
