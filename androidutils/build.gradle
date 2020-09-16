@@ -16,6 +16,12 @@ android {
         versionCode 2
         versionName project.version
     }
+
+    compileOptions {
+        encoding = "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
