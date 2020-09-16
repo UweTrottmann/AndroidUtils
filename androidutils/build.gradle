@@ -8,7 +8,7 @@ archivesBaseName = "androidutils"
 version = "2.3.1"
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 30 // Android 11
 
     defaultConfig {
         minSdkVersion 15
