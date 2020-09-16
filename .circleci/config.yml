@@ -1,0 +1,47 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-android/ for more details
+#
+version: 2
+
+cache_key: &cache_key
+  key: jars-{{ checksum "build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+jobs:
+  build:
+    working_directory: ~/androidutils
+
+    docker:
+      - image: circleci/android:api-30
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          <<: *cache_key
+
+      - run:
+          name: Init
+          command: |
+            chmod +x gradlew
+            ./gradlew -version
+
+      # Reduce memory usage to avoid UnmarshalException of Kotlin daemon (re-uses Gradle daemon heap size).
+      - run:
+          name: Assemble
+          command: ./gradlew assembleDebug -Dorg.gradle.jvmargs="-Xmx1024M"
+
+      - run:
+          # To speed up lint check only run for release variant.
+          # Source: https://groups.google.com/forum/#!topic/lint-dev/RGTvK_uHQGQ
+          name: Run Lint
+          command: ./gradlew :androidutils:lintPureRelease -Dorg.gradle.jvmargs="-Xmx1024M"
+      - store_artifacts:
+          path: androidutils/build/reports/lint-results-release.html
+          destination: lint-results-release.html
+
+      - save_cache:
+          <<: *cache_key
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
