@@ -22,6 +22,26 @@ import androidx.annotation.RequiresPermission;
 
 public class AndroidUtils {
 
+    public static boolean isAtLeastAndroid11() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R;
+    }
+
+    public static boolean isAtLeastAndroid10() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
+    }
+
+    public static boolean isAtLeastAndroid9() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
+    }
+
+    public static boolean isAtLeastAndroid81() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
+    }
+
+    public static boolean isAtLeastAndroid8() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
+    }
+
     public static boolean isNougatMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
     }
