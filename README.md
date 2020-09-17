@@ -2,13 +2,16 @@
 
 Some helper code for Android app development.
 
-* `AndroidUtils` helper methods to 
+* [`AndroidUtils`](androidutils/src/main/java/com/uwetrottmann/androidutils/AndroidUtils.java)
+  helper methods to
   * check for Android version (like `AndroidUtils.isLollipopOrHigher()`),
   * an active or unmetered network connection,
   * external storage state availability.
-* `CheatSheet` (original version by [Roman Nurik](https://gist.github.com/romannurik/3982005)) to display info toasts for any view (similar to action items) on long press or pointer hover.
+* [`CheatSheet`](androidutils/src/main/java/com/uwetrottmann/androidutils/CheatSheet.java)
+  (original version by [Roman Nurik](https://gist.github.com/romannurik/3982005)) to display info toasts for any view (similar to action items) on long press or pointer hover.
   * Note: this is now just a wrapper for `TooltipCompat` from AndroidX appcompat, for new code it should probably be used directly.
-* `GenericSimpleLoader` offers a basic `AsyncTaskLoader` implementation to load simple objects or a list of objects.
+* [`GenericSimpleLoader`](androidutils/src/main/java/com/uwetrottmann/androidutils/GenericSimpleLoader.java)
+  offers a basic `AsyncTaskLoader` implementation to load simple objects or a list of objects.
   * Deprecated, should probably use [ViewModel and LiveData](https://developer.android.com/topic/libraries/architecture/livedata) instead.
 
 ## Usage
