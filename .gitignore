@@ -27,6 +27,7 @@ $RECYCLE.BIN/
 *.iws
 !.idea/
 .idea/*
+!.idea/codeStyles
 !.idea/codeStyleSettings.xml
 
 ### Gradle
