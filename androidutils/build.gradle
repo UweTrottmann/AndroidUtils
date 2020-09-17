@@ -1,10 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
 
 group = "com.uwetrottmann.androidutils"
-archivesBaseName = "androidutils"
 version = "2.3.2-SNAPSHOT"
 
 android {
@@ -33,94 +32,69 @@ nexusStaging {
     packageGroup = "com.uwetrottmann"
 }
 
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
 afterEvaluate { project ->
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+    publishing {
+        publications {
+            central(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
 
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME') && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
-                        authentication(userName: SONATYPE_NEXUS_USERNAME, password: SONATYPE_NEXUS_PASSWORD)
-                        println "NOTE: Release artifacts will be signed."
-                    } else {
-                        println "WARNING: Release artifacts will not be signed."
-                    }
-                }
+                artifactId = 'androidutils'
 
-                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME') && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
-                        authentication(userName: SONATYPE_NEXUS_USERNAME, password: SONATYPE_NEXUS_PASSWORD)
-                        println "NOTE: Snapshot artifacts will be signed."
-                    } else {
-                        println "WARNING: Snapshot artifacts will not be signed."
-                    }
-                }
-
-                pom.project {
-                    name "AndroidUtils"
-                    packaging "aar"
-                    description "Little helpers for Android development."
-                    url "https://github.com/UweTrottmann/AndroidUtils"
-
-                    scm {
-                        url "scm:git@github.com:UweTrottmann/AndroidUtils.git"
-                        connection "scm:git@github.com:UweTrottmann/AndroidUtils.git"
-                        developerConnection "scm:git@github.com:UweTrottmann/AndroidUtils.git"
-                    }
+                pom {
+                    name = "AndroidUtils"
+                    description = "Little helpers for Android development."
+                    url = "https://github.com/UweTrottmann/AndroidUtils"
 
                     licenses {
                         license {
-                            name "The Apache Software License, Version 2.0"
-                            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                            name = "The Apache License, Version 2.0"
+                            url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
                         }
                     }
 
                     developers {
                         developer {
-                            id "uwetrottmann"
-                            name "Uwe Trottmann"
+                            id = "uwetrottmann"
+                            name = "Uwe Trottmann"
                         }
+                    }
+
+                    scm {
+                        connection = "scm:git:git@github.com:UweTrottmann/AndroidUtils.git"
+                        developerConnection = "scm:git:git@github.com:UweTrottmann/AndroidUtils.git"
+                        url = "https://github.com/UweTrottmann/AndroidUtils"
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "Central"
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME')
+                        && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
+                    credentials {
+                        username SONATYPE_NEXUS_USERNAME
+                        password SONATYPE_NEXUS_PASSWORD
                     }
                 }
             }
         }
     }
 
-    task installArchives(type: Upload) {
-        description "Installs the artifacts to the local Maven repository."
-        configuration = configurations['archives']
-        repositories {
-            mavenDeployer {
-                repository url: "file://${System.properties['user.home']}/.m2/repository"
-            }
-        }
-    }
-
     signing {
-        required { gradle.taskGraph.hasTask("uploadArchives") }
-        sign configurations.archives
+        if (!rootProject.hasProperty('signing.keyId')
+                || !rootProject.hasProperty('signing.password')
+                || !rootProject.hasProperty('signing.secretKeyRingFile')) {
+            println "WARNING: Signing properties missing, published artifacts will not be signed."
+        }
+        sign publishing.publications.central
     }
 
-    task androidJavadocs(type: Javadoc) {
-        source = android.sourceSets.main.java.srcDirs
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-        classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
-        classpath += project.android.libraryVariants.toList().first().javaCompile.outputs.files
-    }
-
-    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-        classifier = 'javadoc'
-        from androidJavadocs.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-        classifier = "sources"
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    artifacts {
-        archives androidSourcesJar
-        archives androidJavadocsJar
-    }
 }
