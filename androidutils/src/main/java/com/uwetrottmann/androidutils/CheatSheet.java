@@ -32,6 +32,8 @@ import android.widget.Toast;
  * Based on the original action bar implementation in <a href=
  * "https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/com/android/internal/view/menu/ActionMenuItemView.java"
  * > ActionMenuItemView.java</a>.
+ *
+ * @deprecated Should probably use TooltipCompat of AndroidX appcompat library.
  */
 public class CheatSheet {
     /**
