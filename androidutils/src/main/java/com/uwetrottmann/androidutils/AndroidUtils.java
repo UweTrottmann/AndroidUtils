@@ -20,68 +20,124 @@ import java.util.Locale;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 
+/**
+ * Provides various static helper methods to
+ * <ul>
+ * <li>check for Android version (like {@link #isAtLeastAndroid8()}),</li>
+ * <li>an active or unmetered network connection,</li>
+ * <li>external storage state availability.</li>
+ * </ul>
+ */
 public class AndroidUtils {
 
+    /**
+     * API level 30+.
+     */
     public static boolean isAtLeastAndroid11() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R;
     }
 
+    /**
+     * API level 29+.
+     */
     public static boolean isAtLeastAndroid10() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
     }
 
+    /**
+     * API level 28+.
+     */
     public static boolean isAtLeastAndroid9() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
     }
 
+    /**
+     * API level 27+.
+     */
     public static boolean isAtLeastAndroid81() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
     }
 
+    /**
+     * API level 26+.
+     */
     public static boolean isAtLeastAndroid8() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
+    /**
+     * API level 25+.
+     */
     public static boolean isNougatMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
     }
 
+    /**
+     * API level 24+.
+     */
     public static boolean isNougatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
+    /**
+     * API level 23+.
+     */
     public static boolean isMarshmallowOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
+    /**
+     * API level 22+.
+     */
     public static boolean isLollipopMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
+    /**
+     * API level 21+.
+     */
     public static boolean isLollipopOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
+    /**
+     * API level 20+.
+     */
     public static boolean isKitKatWatchOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
     }
 
+    /**
+     * API level 19+.
+     */
     public static boolean isKitKatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
+    /**
+     * API level 18+.
+     */
     public static boolean isJellyBeanMR2OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
+    /**
+     * API level 17+.
+     */
     public static boolean isJellyBeanMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
+    /**
+     * API level 16+.
+     */
     public static boolean isJellyBeanOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
+    /**
+     * API level 15+.
+     */
     public static boolean isICSMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
     }
