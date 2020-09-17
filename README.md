@@ -12,7 +12,7 @@ Some helper code for Android app development.
   * Note: this is now just a wrapper for `TooltipCompat` from AndroidX appcompat, for new code it should probably be used directly.
 * [`GenericSimpleLoader`](androidutils/src/main/java/com/uwetrottmann/androidutils/GenericSimpleLoader.java)
   offers a basic `AsyncTaskLoader` implementation to load simple objects or a list of objects.
-  * Deprecated, should probably use [ViewModel and LiveData](https://developer.android.com/topic/libraries/architecture/livedata) instead.
+  * Note: new code should probably use [ViewModel and LiveData](https://developer.android.com/topic/libraries/architecture/livedata) instead.
 
 ## Usage
 This library is available on Maven Central.
