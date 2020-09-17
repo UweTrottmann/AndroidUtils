@@ -33,7 +33,7 @@ import android.widget.Toast;
  * "https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/com/android/internal/view/menu/ActionMenuItemView.java"
  * > ActionMenuItemView.java</a>.
  *
- * @deprecated Should probably use TooltipCompat of AndroidX appcompat library.
+ * @deprecated Should probably use <a href="https://developer.android.com/reference/androidx/appcompat/widget/TooltipCompat">TooltipCompat</a> of AndroidX appcompat library.
  */
 public class CheatSheet {
     /**
