@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
-apply plugin: 'io.codearte.nexus-staging'
 
 group = "com.uwetrottmann.androidutils"
 version = "2.3.2-SNAPSHOT"
@@ -30,15 +29,6 @@ dependencies {
     implementation "androidx.loader:loader:1.1.0"
     // https://developer.android.com/jetpack/androidx/releases/appcompat
     implementation "androidx.appcompat:appcompat:1.2.0"
-}
-
-nexusStaging {
-    packageGroup = "com.uwetrottmann"
-    if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME')
-            && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
-        username = SONATYPE_NEXUS_USERNAME
-        password = SONATYPE_NEXUS_PASSWORD
-    }
 }
 
 task androidJavadocs(type: Javadoc) {
