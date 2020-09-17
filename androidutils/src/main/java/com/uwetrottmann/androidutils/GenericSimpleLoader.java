@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 /**
@@ -23,9 +25,10 @@ import androidx.loader.content.AsyncTaskLoader;
  */
 public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
 
+    @Nullable
     protected T items;
 
-    public GenericSimpleLoader(Context context) {
+    public GenericSimpleLoader(@NonNull Context context) {
         super(context);
     }
 
@@ -34,7 +37,7 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
      * delivering it; the implementation here just adds a little more logic.
      */
     @Override
-    public void deliverResult(T newItems) {
+    public void deliverResult(@Nullable T newItems) {
         if (isReset()) {
             // An async query came in while the loader is stopped. We
             // don't need the result.
@@ -79,7 +82,7 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
      * Handles a request to cancel a load.
      */
     @Override
-    public void onCanceled(T items) {
+    public void onCanceled(@Nullable T items) {
         if (items != null) {
             onReleaseResources(items);
         }
@@ -106,7 +109,7 @@ public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
      * Helper function to take care of releasing resources associated with an actively loaded data
      * set.
      */
-    protected void onReleaseResources(T items) {
+    protected void onReleaseResources(@NonNull T items) {
         // For simple items there is nothing to do. For something
         // like a Cursor, we would close it here.
     }

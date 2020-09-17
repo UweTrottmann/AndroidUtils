@@ -20,6 +20,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.widget.TooltipCompat;
 
 /**
@@ -51,7 +52,7 @@ public class CheatSheet {
      * long-pressed or hovered, a tooltip with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
      */
-    public static void setup(@NonNull View view, final int textResId) {
+    public static void setup(@NonNull View view, @StringRes int textResId) {
         TooltipCompat.setTooltipText(view, view.getContext().getString(textResId));
     }
 
@@ -64,14 +65,14 @@ public class CheatSheet {
      * <p>
      * Will remove the tooltip when a null text is passed.
      */
-    public static void setup(@NonNull View view, @Nullable final CharSequence text) {
+    public static void setup(@NonNull View view, @Nullable CharSequence text) {
         TooltipCompat.setTooltipText(view, text);
     }
 
     /**
      * Removes the cheat sheet for the given view.
      */
-    public static void remove(final View view) {
+    public static void remove(@NonNull View view) {
         TooltipCompat.setTooltipText(view, null);
     }
 

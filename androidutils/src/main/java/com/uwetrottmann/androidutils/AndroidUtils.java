@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresPermission;
 
@@ -163,7 +164,8 @@ public class AndroidUtils {
         return false;
     }
 
-    private static ConnectivityManager getConnectivityManager(Context context) {
+    @Nullable
+    private static ConnectivityManager getConnectivityManager(@NonNull Context context) {
         // use application context to avoid leaking any activity
         // https://code.google.com/p/android/issues/detail?id=198852
         return (ConnectivityManager) context.getApplicationContext()
@@ -172,7 +174,7 @@ public class AndroidUtils {
 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @Nullable
-    private static NetworkInfo getActiveNetworkInfo(Context context) {
+    private static NetworkInfo getActiveNetworkInfo(@NonNull Context context) {
         ConnectivityManager connectivityManager = getConnectivityManager(context);
         if (connectivityManager == null) {
             return null;
@@ -184,7 +186,7 @@ public class AndroidUtils {
      * Whether there is an active network connection.
      */
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-    public static boolean isNetworkConnected(Context context) {
+    public static boolean isNetworkConnected(@NonNull Context context) {
         NetworkInfo activeNetworkInfo = getActiveNetworkInfo(context);
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -196,7 +198,7 @@ public class AndroidUtils {
      * #isUnmeteredNetworkConnected(Context)}.
      */
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-    public static boolean isWifiConnected(Context context) {
+    public static boolean isWifiConnected(@NonNull Context context) {
         NetworkInfo activeNetwork = getActiveNetworkInfo(context);
         return activeNetwork != null && activeNetwork.isConnected()
                 && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
@@ -208,7 +210,7 @@ public class AndroidUtils {
      */
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static boolean isUnmeteredNetworkConnected(Context context) {
+    public static boolean isUnmeteredNetworkConnected(@NonNull Context context) {
         ConnectivityManager connectivityManager = getConnectivityManager(context);
         if (connectivityManager == null) {
             return false;
@@ -224,7 +226,7 @@ public class AndroidUtils {
      * @param src source {@link File}
      * @param dst destination {@link File}
      */
-    public static void copyFile(File src, File dst) throws IOException {
+    public static void copyFile(@NonNull File src, @NonNull  File dst) throws IOException {
         FileInputStream in = new FileInputStream(src);
         FileOutputStream out = new FileOutputStream(dst);
         FileChannel inChannel = in.getChannel();
