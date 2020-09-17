@@ -34,6 +34,11 @@ dependencies {
 
 nexusStaging {
     packageGroup = "com.uwetrottmann"
+    if (rootProject.hasProperty('SONATYPE_NEXUS_USERNAME')
+            && rootProject.hasProperty('SONATYPE_NEXUS_PASSWORD')) {
+        username = SONATYPE_NEXUS_USERNAME
+        password = SONATYPE_NEXUS_PASSWORD
+    }
 }
 
 task androidJavadocs(type: Javadoc) {
