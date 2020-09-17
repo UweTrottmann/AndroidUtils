@@ -24,8 +24,12 @@ android {
 }
 
 dependencies {
+    // https://developer.android.com/jetpack/androidx/releases/annotation
     implementation "androidx.annotation:annotation:1.1.0"
+    // https://developer.android.com/jetpack/androidx/releases/loader
     implementation "androidx.loader:loader:1.1.0"
+    // https://developer.android.com/jetpack/androidx/releases/appcompat
+    implementation "androidx.appcompat:appcompat:1.2.0"
 }
 
 nexusStaging {

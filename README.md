@@ -6,8 +6,8 @@ Some helper code for Android app development.
   * check for Android version (like `AndroidUtils.isLollipopOrHigher()`),
   * an active or unmetered network connection,
   * external storage state availability.
-* `CheatSheet` by [Roman Nurik](https://gist.github.com/romannurik/3982005) to display info toasts for any view (similar to action items).
-  * Deprecated, should probably use [ToolTipCompat](https://developer.android.com/reference/androidx/appcompat/widget/TooltipCompat) instead.
+* `CheatSheet` (original version by [Roman Nurik](https://gist.github.com/romannurik/3982005)) to display info toasts for any view (similar to action items) on long press or pointer hover.
+  * Note: this is now just a wrapper for `TooltipCompat` from AndroidX appcompat, for new code it should probably be used directly.
 * `GenericSimpleLoader` offers a basic `AsyncTaskLoader` implementation to load simple objects or a list of objects.
   * Deprecated, should probably use [ViewModel and LiveData](https://developer.android.com/topic/libraries/architecture/livedata) instead.
 
