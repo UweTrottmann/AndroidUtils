@@ -1,6 +1,14 @@
 Release Notes
 =============
 
+## 2.4.0
+_2020-09-17_
+
+- Migrate to AndroidX.
+- Change `CheatSheet` to internally use `TooltipCompat` from AndroidX appcompat.
+- Add Android API level checks up to Android 11 (API level 30).
+- Add nullability, permission and type annotations.
+
 ## 2.3.1
 _2017-08-03_
 

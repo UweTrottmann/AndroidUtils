@@ -20,7 +20,7 @@ This library is available on Maven Central.
 <a href="https://search.maven.org/search?q=com.uwetrottmann.androidutils"><img src="https://img.shields.io/maven-central/v/com.uwetrottmann.androidutils/androidutils.svg?style=flat-square"></a>
 
 ```groovy
-implementation("com.uwetrottmann.androidutils:androidutils:2.3.1")
+implementation("com.uwetrottmann.androidutils:androidutils:2.4.0")
 ```
 
 ## License
