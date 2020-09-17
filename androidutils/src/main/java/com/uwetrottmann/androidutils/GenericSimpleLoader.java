@@ -18,6 +18,8 @@ import androidx.loader.content.AsyncTaskLoader;
  * associated with the actively loaded data set. If you have to use a {@link
  * android.database.Cursor} you should probably use {@link androidx.loader.content.CursorLoader}
  * instead.
+ *
+ * @deprecated Should probably use <a href="https://developer.android.com/topic/libraries/architecture/livedata">ViewModel and LiveData</a> instead.
  */
 public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
 

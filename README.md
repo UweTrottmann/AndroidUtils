@@ -9,6 +9,7 @@ Some helper code for Android app development.
 * `CheatSheet` by [Roman Nurik](https://gist.github.com/romannurik/3982005) to display info toasts for any view (similar to action items).
   * Deprecated, should probably use [ToolTipCompat](https://developer.android.com/reference/androidx/appcompat/widget/TooltipCompat) instead.
 * `GenericSimpleLoader` offers a basic `AsyncTaskLoader` implementation to load simple objects or a list of objects.
+  * Deprecated, should probably use [ViewModel and LiveData](https://developer.android.com/topic/libraries/architecture/livedata) instead.
 
 ## Usage
 This library is available on Maven Central.
