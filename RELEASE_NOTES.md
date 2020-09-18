@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+## Next version
+_TBD_
+
+- Change new Android SDK version check names to include code-name to appease Lint NewApi check.
+
 ## 2.4.0
 _2020-09-17_
 

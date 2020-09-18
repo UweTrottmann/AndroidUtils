@@ -24,120 +24,125 @@ import androidx.annotation.RequiresPermission;
 /**
  * Provides various static helper methods to
  * <ul>
- * <li>check for Android version (like {@link #isAtLeastAndroid8()}),</li>
+ * <li>check for Android version (like {@link #isAtLeastOreo()}),</li>
  * <li>an active or unmetered network connection,</li>
  * <li>external storage state availability.</li>
  * </ul>
  */
 public class AndroidUtils {
 
-    /**
-     * API level 30+.
+    /*
+     * NOTE: new Android SDK version checks should contain the code name,
+     * otherwise Lint does not seem to detect them?!
      */
-    public static boolean isAtLeastAndroid11() {
+
+    /**
+     * API level 30+, Android 11.
+     */
+    public static boolean isAtLeastR() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R;
     }
 
     /**
-     * API level 29+.
+     * API level 29+, Android 10.
      */
-    public static boolean isAtLeastAndroid10() {
+    public static boolean isAtLeastQ() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
     }
 
     /**
-     * API level 28+.
+     * API level 28+, Android 9.
      */
-    public static boolean isAtLeastAndroid9() {
+    public static boolean isAtLeastPie() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
     }
 
     /**
-     * API level 27+.
+     * API level 27+, Android 8.1.
      */
-    public static boolean isAtLeastAndroid81() {
+    public static boolean isAtLeastOreoMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1;
     }
 
     /**
-     * API level 26+.
+     * API level 26+, Android 8.0.
      */
-    public static boolean isAtLeastAndroid8() {
+    public static boolean isAtLeastOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
-    /**
-     * API level 25+.
-     */
+        /**
+         * API level 25+, Android 7.1.
+         */
     public static boolean isNougatMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
     }
 
     /**
-     * API level 24+.
+     * API level 24+, Android 7.0.
      */
     public static boolean isNougatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
     }
 
     /**
-     * API level 23+.
+     * API level 23+, Android 6.0.
      */
     public static boolean isMarshmallowOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     /**
-     * API level 22+.
+     * API level 22+, Android 5.1.
      */
     public static boolean isLollipopMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
     /**
-     * API level 21+.
+     * API level 21+, Android 5.0.
      */
     public static boolean isLollipopOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     /**
-     * API level 20+.
+     * API level 20+, Android 4.4.
      */
     public static boolean isKitKatWatchOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH;
     }
 
     /**
-     * API level 19+.
+     * API level 19+, Android 4.4.
      */
     public static boolean isKitKatOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
     /**
-     * API level 18+.
+     * API level 18+, Android 4.3.
      */
     public static boolean isJellyBeanMR2OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
     /**
-     * API level 17+.
+     * API level 17+, Android 4.2.
      */
     public static boolean isJellyBeanMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
 
     /**
-     * API level 16+.
+     * API level 16+, Android 4.1.
      */
     public static boolean isJellyBeanOrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }
 
     /**
-     * API level 15+.
+     * API level 15+, Android 4.0.3.
      */
     public static boolean isICSMR1OrHigher() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
