@@ -24,7 +24,7 @@ jobs:
         run: ./gradlew -version
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew assembleDebug
 
       # To speed up lint check only run for release variant.
       - name: Run Lint
