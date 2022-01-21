@@ -27,6 +27,14 @@ import java.util.*
 object AndroidUtils {
 
     /**
+     * API level 31+, Android 12.
+     */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+    @JvmStatic
+    val isAtLeastS: Boolean
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+
+    /**
      * API level 30+, Android 11.
      */
     @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
