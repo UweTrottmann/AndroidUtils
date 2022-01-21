@@ -4,12 +4,14 @@ import android.Manifest
 import android.annotation.TargetApi
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
 import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.core.content.getSystemService
 import com.uwetrottmann.androidutils.AndroidUtils.isAtLeastOreo
@@ -184,33 +186,40 @@ object AndroidUtils {
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
+    @Suppress("DEPRECATION")
     private fun getActiveNetworkInfo(context: Context): NetworkInfo? {
         val connectivityManager = getConnectivityManager(context) ?: return null
         return connectivityManager.activeNetworkInfo
     }
 
     /**
-     * Whether there is an active network connection.
+     * Uses Android 6 APIs to get active network capabilities.
+     *
+     * https://developer.android.com/training/basics/network-ops/reading-network-state
+     */
+    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
+    private fun getActiveNetworkCapabilities(context: Context): NetworkCapabilities? {
+        val connectivityManager = getConnectivityManager(context) ?: return null
+        val activeNetwork = connectivityManager.activeNetwork ?: return null
+        return connectivityManager.getNetworkCapabilities(activeNetwork)
+    }
+
+    /**
+     * Whether the active network has [NetworkCapabilities.NET_CAPABILITY_INTERNET],
+     * or on Android 5.1 or lower if the active network connection is connected.
      */
     @JvmStatic
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     fun isNetworkConnected(context: Context): Boolean {
-        val activeNetworkInfo = getActiveNetworkInfo(context)
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
-
-    /**
-     * Whether there is an active network connection and it is via WiFi.
-     *
-     * If you want to check whether to transmit large amounts of data,
-     * you may want to use [isUnmeteredNetworkConnected].
-     */
-    @JvmStatic
-    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-    fun isWifiConnected(context: Context): Boolean {
-        val activeNetwork = getActiveNetworkInfo(context)
-        return (activeNetwork != null && activeNetwork.isConnected
-                && activeNetwork.type == ConnectivityManager.TYPE_WIFI)
+        if (isMarshmallowOrHigher) {
+            val networkCapabilities = getActiveNetworkCapabilities(context) ?: return false
+            return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        } else {
+            val activeNetworkInfo = getActiveNetworkInfo(context)
+            @Suppress("DEPRECATION")
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
     }
 
     /**
@@ -221,10 +230,18 @@ object AndroidUtils {
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     fun isUnmeteredNetworkConnected(context: Context): Boolean {
-        val connectivityManager = getConnectivityManager(context) ?: return false
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return (activeNetworkInfo != null && activeNetworkInfo.isConnected
-                && !connectivityManager.isActiveNetworkMetered)
+        if (isMarshmallowOrHigher) {
+            val networkCapabilities = getActiveNetworkCapabilities(context) ?: return false
+            return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+        } else {
+            val connectivityManager = getConnectivityManager(context) ?: return false
+            @Suppress("DEPRECATION")
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
+            @Suppress("DEPRECATION")
+            return (activeNetworkInfo != null && activeNetworkInfo.isConnected
+                    && !connectivityManager.isActiveNetworkMetered)
+        }
     }
 
 }
