@@ -25,11 +25,6 @@ import java.util.*
  */
 object AndroidUtils {
 
-    /*
-     * NOTE: new Android SDK version checks should contain the code name,
-     * otherwise Lint does not seem to detect them?!
-     */
-
     /**
      * API level 30+, Android 11.
      */
