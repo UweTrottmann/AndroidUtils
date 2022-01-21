@@ -211,30 +211,4 @@ object AndroidUtils {
                 && !connectivityManager.isActiveNetworkMetered)
     }
 
-    /**
-     * Copies the contents of one file to the other using [FileChannel]s.
-     *
-     * @param src source [File]
-     * @param dst destination [File]
-     */
-    @JvmStatic
-    @Throws(IOException::class)
-    fun copyFile(src: File, dst: File) {
-        val inputStream = FileInputStream(src)
-        val outputStream = FileOutputStream(dst)
-        val inChannel = inputStream.channel
-        val outChannel = outputStream.channel
-        try {
-            inChannel.transferTo(0, inChannel.size(), outChannel)
-        } finally {
-            try {
-                inputStream.close()
-            } catch (ignored: IOException) {
-            }
-            try {
-                outputStream.close()
-            } catch (ignored: IOException) {
-            }
-        }
-    }
 }
