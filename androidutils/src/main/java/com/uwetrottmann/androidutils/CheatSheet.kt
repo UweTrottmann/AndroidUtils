@@ -13,67 +13,95 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.uwetrottmann.androidutils
 
-package com.uwetrottmann.androidutils;
-
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.widget.TooltipCompat;
+import android.view.View
+import androidx.appcompat.widget.TooltipCompat
+import androidx.annotation.StringRes
 
 /**
  * Helper class for showing cheat sheets (tooltips) for icon-only UI elements on
  * long-press or hover. This is already default platform behavior for icon-only
- * {@link android.app.ActionBar} items and tabs. This class provides this
+ * [android.app.ActionBar] items and tabs. This class provides this
  * behavior for any other such UI element.
- * <p>
- * Note: This is now just a wrapper for {@link TooltipCompat#setTooltipText(View, CharSequence)},
+ *
+ * Note: This is now just a wrapper for [TooltipCompat.setTooltipText],
  * new code should probably use it directly.
  */
-public class CheatSheet {
+object CheatSheet {
 
     /**
      * Sets up a cheat sheet (tooltip) for the given view using
-     * {@link TooltipCompat#setTooltipText(View, CharSequence)}. When the view is
+     * [TooltipCompat.setTooltipText]. When the view is
      * long-pressed or hovered, a tooltip with the view's
-     * {@link View#getContentDescription() content description}
+     * [content description][View.getContentDescription]
      * will be shown either above (default) or below the view (if there isn't
      * room above it).
      */
-    public static void setup(@NonNull View view) {
-        TooltipCompat.setTooltipText(view, view.getContentDescription());
+    @Deprecated(
+        message = "This is now just a wrapper for TooltipCompat.setTooltipText, new code should probably use it directly.",
+        replaceWith = ReplaceWith(
+            expression = "TooltipCompat.setTooltipText(view, view.contentDescription)",
+            "androidx.appcompat.widget.TooltipCompat"
+        )
+    )
+    @JvmStatic
+    fun setup(view: View) {
+        TooltipCompat.setTooltipText(view, view.contentDescription)
     }
 
     /**
      * Sets up a cheat sheet (tooltip) for the given view using
-     * {@link TooltipCompat#setTooltipText(View, CharSequence)}. When the view is
+     * [TooltipCompat.setTooltipText]. When the view is
      * long-pressed or hovered, a tooltip with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
      */
-    public static void setup(@NonNull View view, @StringRes int textResId) {
-        TooltipCompat.setTooltipText(view, view.getContext().getString(textResId));
+    @Deprecated(
+        message = "This is now just a wrapper for TooltipCompat.setTooltipText, new code should probably use it directly.",
+        replaceWith = ReplaceWith(
+            expression = "TooltipCompat.setTooltipText(view, view.context.getString(textResId))",
+            "androidx.appcompat.widget.TooltipCompat"
+        )
+    )
+    @JvmStatic
+    fun setup(view: View, @StringRes textResId: Int) {
+        TooltipCompat.setTooltipText(view, view.context.getString(textResId))
     }
 
     /**
      * Sets up a cheat sheet (tooltip) for the given view using
-     * {@link TooltipCompat#setTooltipText(View, CharSequence)}. When the view is
+     * [TooltipCompat.setTooltipText]. When the view is
      * long-pressed or hovered, a tooltip with the given text will be shown either
      * above (default) or below the view (if there isn't room above it).
      * will be shown near the view.
-     * <p>
+     *
+     *
      * Will remove the tooltip when a null text is passed.
      */
-    public static void setup(@NonNull View view, @Nullable CharSequence text) {
-        TooltipCompat.setTooltipText(view, text);
+    @Deprecated(
+        message = "This is now just a wrapper for TooltipCompat.setTooltipText, new code should probably use it directly.",
+        replaceWith = ReplaceWith(
+            expression = "TooltipCompat.setTooltipText(view, text)",
+            "androidx.appcompat.widget.TooltipCompat"
+        )
+    )
+    @JvmStatic
+    fun setup(view: View, text: CharSequence?) {
+        TooltipCompat.setTooltipText(view, text)
     }
 
     /**
      * Removes the cheat sheet for the given view.
      */
-    public static void remove(@NonNull View view) {
-        TooltipCompat.setTooltipText(view, null);
+    @Deprecated(
+        message = "This is now just a wrapper for TooltipCompat.setTooltipText, new code should probably use it directly.",
+        replaceWith = ReplaceWith(
+            expression = "TooltipCompat.setTooltipText(view, null)",
+            "androidx.appcompat.widget.TooltipCompat"
+        )
+    )
+    @JvmStatic
+    fun remove(view: View) {
+        TooltipCompat.setTooltipText(view, null)
     }
-
 }
