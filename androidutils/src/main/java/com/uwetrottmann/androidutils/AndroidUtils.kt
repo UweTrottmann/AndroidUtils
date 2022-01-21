@@ -1,23 +1,19 @@
 package com.uwetrottmann.androidutils
 
 import android.Manifest
+import android.annotation.TargetApi
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
-import android.net.ConnectivityManager
-import androidx.annotation.RequiresPermission
-import android.net.NetworkInfo
-import android.annotation.TargetApi
-import android.content.Context
 import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.RequiresPermission
 import androidx.core.content.getSystemService
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
+import com.uwetrottmann.androidutils.AndroidUtils.isAtLeastOreo
 import java.util.*
-import kotlin.Throws
 
 /**
  * Provides various static helper methods to
