@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = '1.6.10'
+    ext.dokka_version = '1.6.10'
     repositories {
         google()
         mavenCentral()
@@ -10,6 +11,7 @@ buildscript {
         // https://github.com/Codearte/gradle-nexus-staging-plugin/releases
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${dokka_version}")
     }
 }
 
