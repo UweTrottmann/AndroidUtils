@@ -1,116 +1,98 @@
-package com.uwetrottmann.androidutils;
+package com.uwetrottmann.androidutils
 
-import android.content.Context;
-
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.loader.content.AsyncTaskLoader;
+import android.content.Context
+import androidx.loader.content.AsyncTaskLoader
 
 /**
- * A generic {@link AsyncTaskLoader} suitable for loading any single object or {@link List} of
+ * A generic [AsyncTaskLoader] suitable for loading any single object or [List] of
  * objects. It takes care of delivering and resetting results, so you only have to implement
- * <code>loadInBackground()</code>.
+ * `loadInBackground()`.
  *
- * <p>To automatically reload data on content changes implement some form of content observer which
- * just calls this loaders {@link #onContentChanged()} method if data has changed.
  *
- * <p>Make sure to override {@link #onReleaseResources} in a meaningful way to clean up resources
- * associated with the actively loaded data set. If you have to use a {@link
- * android.database.Cursor} you should probably use {@link androidx.loader.content.CursorLoader}
- * instead.
- * <p>
- * Note: new code should probably use <a href="https://developer.android.com/topic/libraries/architecture/livedata">ViewModel and LiveData</a> instead.
+ * To automatically reload data on content changes implement some form of content observer which
+ * just calls this loaders [.onContentChanged] method if data has changed.
+ *
+ *
+ * Make sure to override [.onReleaseResources] in a meaningful way to clean up resources
+ * associated with the actively loaded data set. If you have to use a [android.database.Cursor]
+ * you should probably use [androidx.loader.content.CursorLoader] instead.
+ *
+ * Note: new code should probably use
+ * [ViewModel and LiveData](https://developer.android.com/topic/libraries/architecture/livedata) instead.
  */
-public abstract class GenericSimpleLoader<T> extends AsyncTaskLoader<T> {
+abstract class GenericSimpleLoader<T>(context: Context) : AsyncTaskLoader<T>(context) {
 
-    @Nullable
-    protected T items;
-
-    public GenericSimpleLoader(@NonNull Context context) {
-        super(context);
-    }
+    protected var items: T? = null
 
     /**
      * Called when there is new data to deliver to the client. The super class will take care of
      * delivering it; the implementation here just adds a little more logic.
      */
-    @Override
-    public void deliverResult(@Nullable T newItems) {
-        if (isReset()) {
+    override fun deliverResult(newItems: T?) {
+        if (isReset) {
             // An async query came in while the loader is stopped. We
             // don't need the result.
-            if (newItems != null) {
-                onReleaseResources(newItems);
-            }
+            newItems?.let { onReleaseResources(it) }
         }
-        T oldItems = this.items;
-        this.items = newItems;
+        val oldItems = items
+        items = newItems
 
-        if (isStarted()) {
+        if (isStarted) {
             // If the Loader is currently started, we can immediately
             // deliver its results.
-            super.deliverResult(newItems);
+            super.deliverResult(newItems)
         }
 
-        if (oldItems != null) {
-            onReleaseResources(oldItems);
-        }
+        oldItems?.let { onReleaseResources(it) }
     }
 
-    @Override
-    protected void onStartLoading() {
+    override fun onStartLoading() {
         if (items != null) {
-            deliverResult(items);
+            deliverResult(items)
         }
         if (takeContentChanged() || items == null) {
-            forceLoad();
+            forceLoad()
         }
     }
 
     /**
      * Handles a request to stop the Loader.
      */
-    @Override
-    protected void onStopLoading() {
+    override fun onStopLoading() {
         // Attempt to cancel the current load task if possible.
-        cancelLoad();
+        cancelLoad()
     }
 
     /**
      * Handles a request to cancel a load.
      */
-    @Override
-    public void onCanceled(@Nullable T items) {
-        if (items != null) {
-            onReleaseResources(items);
-        }
+    override fun onCanceled(items: T?) {
+        items?.let { onReleaseResources(it) }
     }
 
     /**
      * Handles a request to completely reset the Loader.
      */
-    @Override
-    protected void onReset() {
-        super.onReset();
+    override fun onReset() {
+        super.onReset()
 
         // Ensure the loader is stopped
-        onStopLoading();
+        onStopLoading()
 
         // At this point we can release resources
         if (items != null) {
-            onReleaseResources(items);
-            items = null;
+            onReleaseResources(items!!)
+            items = null
         }
     }
 
     /**
      * Helper function to take care of releasing resources associated with an actively loaded data
      * set.
+     *
+     * For simple items there is nothing to do. For something like a Cursor,
+     * it should be closed here.
      */
-    protected void onReleaseResources(@NonNull T items) {
-        // For simple items there is nothing to do. For something
-        // like a Cursor, we would close it here.
+    protected open fun onReleaseResources(items: T) {
     }
 }
