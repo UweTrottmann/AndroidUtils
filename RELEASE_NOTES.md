@@ -1,6 +1,15 @@
 Release Notes
 =============
 
+## 3.0.0
+_2022-01-21_
+
+- Convert to Kotlin.
+- Add replace with code for `CheatSheet`, deprecate all methods.
+- Add `AndroidUtils.isAtLeastS`, remove `isICSMR1OrHigher`.
+- `AndroidUtils` uses `NetworkCapabilities` API to detect network state on Android 6 and higher.
+- Remove `AndroidUtils.copyFile`, use a Kotlin extension function instead.
+
 ## 2.4.1
 _2020-09-18_
 
