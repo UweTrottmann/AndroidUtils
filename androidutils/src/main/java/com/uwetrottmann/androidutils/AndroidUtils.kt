@@ -23,6 +23,7 @@ import java.util.*
  *  * external storage state availability.
  *
  */
+@Suppress("unused")
 object AndroidUtils {
 
     /**
