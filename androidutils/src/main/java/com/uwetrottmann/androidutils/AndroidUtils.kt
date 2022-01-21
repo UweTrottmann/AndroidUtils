@@ -10,6 +10,7 @@ import android.net.NetworkInfo
 import android.annotation.TargetApi
 import android.content.Context
 import android.view.View
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.core.content.getSystemService
 import java.io.File
 import java.io.FileInputStream
@@ -36,6 +37,7 @@ object AndroidUtils {
     /**
      * API level 30+, Android 11.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.R)
     @JvmStatic
     val isAtLeastR: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
@@ -43,6 +45,7 @@ object AndroidUtils {
     /**
      * API level 29+, Android 10.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
     @JvmStatic
     val isAtLeastQ: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
@@ -50,6 +53,7 @@ object AndroidUtils {
     /**
      * API level 28+, Android 9.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.P)
     @JvmStatic
     val isAtLeastPie: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
@@ -57,6 +61,7 @@ object AndroidUtils {
     /**
      * API level 27+, Android 8.1.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O_MR1)
     @JvmStatic
     val isAtLeastOreoMR1: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
@@ -64,6 +69,7 @@ object AndroidUtils {
     /**
      * API level 26+, Android 8.0.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.O)
     @JvmStatic
     val isAtLeastOreo: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
@@ -71,6 +77,7 @@ object AndroidUtils {
     /**
      * API level 25+, Android 7.1.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N_MR1)
     @JvmStatic
     val isNougatMR1OrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1
@@ -78,6 +85,7 @@ object AndroidUtils {
     /**
      * API level 24+, Android 7.0.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N)
     @JvmStatic
     val isNougatOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
@@ -85,6 +93,7 @@ object AndroidUtils {
     /**
      * API level 23+, Android 6.0.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
     @JvmStatic
     val isMarshmallowOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
@@ -92,6 +101,7 @@ object AndroidUtils {
     /**
      * API level 22+, Android 5.1.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.LOLLIPOP_MR1)
     @JvmStatic
     val isLollipopMR1OrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1
@@ -99,6 +109,7 @@ object AndroidUtils {
     /**
      * API level 21+, Android 5.0.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.LOLLIPOP)
     @JvmStatic
     val isLollipopOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
@@ -106,6 +117,7 @@ object AndroidUtils {
     /**
      * API level 20+, Android 4.4.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.KITKAT_WATCH)
     @JvmStatic
     val isKitKatWatchOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH
@@ -113,6 +125,7 @@ object AndroidUtils {
     /**
      * API level 19+, Android 4.4.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.KITKAT)
     @JvmStatic
     val isKitKatOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
@@ -120,6 +133,7 @@ object AndroidUtils {
     /**
      * API level 18+, Android 4.3.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @JvmStatic
     val isJellyBeanMR2OrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2
@@ -127,6 +141,7 @@ object AndroidUtils {
     /**
      * API level 17+, Android 4.2.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @JvmStatic
     val isJellyBeanMR1OrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
@@ -134,6 +149,7 @@ object AndroidUtils {
     /**
      * API level 16+, Android 4.1.
      */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.JELLY_BEAN)
     @JvmStatic
     val isJellyBeanOrHigher: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
