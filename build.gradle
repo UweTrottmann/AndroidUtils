@@ -3,15 +3,17 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         // https://github.com/Codearte/gradle-nexus-staging-plugin/releases
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0"
-        // https://github.com/ben-manes/gradle-versions-plugin/releases
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.31.0"
     }
+}
+
+plugins {
+    // https://github.com/ben-manes/gradle-versions-plugin/releases
+    id "com.github.ben-manes.versions" version "0.41.0"
 }
 
 apply plugin: 'io.codearte.nexus-staging'
@@ -45,7 +47,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
 }
 
