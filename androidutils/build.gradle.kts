@@ -38,13 +38,14 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
+    // https://developer.android.com/jetpack/androidx/releases/core
+    implementation("androidx.core:core-ktx:1.9.0")
     // https://developer.android.com/jetpack/androidx/releases/annotation
-    implementation("androidx.annotation:annotation:1.3.0")
+    implementation("androidx.annotation:annotation:1.5.0")
     // https://developer.android.com/jetpack/androidx/releases/loader
     implementation("androidx.loader:loader:1.1.0")
     // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.appcompat:appcompat:1.5.1")
 }
 
 // Because the components are created only during the afterEvaluate phase, you must
