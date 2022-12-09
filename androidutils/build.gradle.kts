@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.uwetrottmann.androidutils"
-version = "3.0.0"
+version = "3.1.0-SNAPSHOT"
 
 android {
     namespace = "com.uwetrottmann.androidutils"
