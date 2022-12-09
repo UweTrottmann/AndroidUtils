@@ -28,7 +28,7 @@ signing.secretKeyRingFile=C:/Users/Uwe/AppData/Roaming/gnupg/secring.gpg
 3. Build and publish:
 
     ```
-    ./gradlew clean publishCentralPublicationToSonatypeRepository
+    ./gradlew clean publishCentralPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
     ```
 
 4. Commit and tag release. Change version back to snapshot, commit. Push to GitHub.
