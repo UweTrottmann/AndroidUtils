@@ -1,6 +1,11 @@
 Release Notes
 =============
 
+## next
+- Fix `AndroidUtils.isNetworkConnected` and `.isUnmeteredNetworkConnected` crashing with 
+  `SecurityException` on some Android 11 devices due to a [system bug](https://android-review.googlesource.com/c/platform/frameworks/base/+/1758029).
+  See method for details.
+
 ## 3.0.0
 _2022-01-21_
 
