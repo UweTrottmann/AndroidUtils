@@ -1,20 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
+    id("com.android.library") version "7.3.1" apply false
+    kotlin("android") version "1.7.21" apply false // Can be compiled with at least Kotlin 1.6
     // https://github.com/ben-manes/gradle-versions-plugin/releases
     id("com.github.ben-manes.versions") version "0.43.0"
     // https://github.com/gradle-nexus/publish-plugin/releases
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
-}
-
-buildscript {
-    val kotlin_version by extra("1.6.10")
-    val dokka_version by extra("1.6.10")
-
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.3.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version")
-    }
 }
 
 nexusPublishing {
