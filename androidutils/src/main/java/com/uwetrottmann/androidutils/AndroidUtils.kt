@@ -28,6 +28,22 @@ import java.util.*
 object AndroidUtils {
 
     /**
+     * API level 33+, Android 13.
+     */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU)
+    @JvmStatic
+    val isAtLeastTiramisu: Boolean
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+
+    /**
+     * API level 32+, Android 12 L.
+     */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S_V2)
+    @JvmStatic
+    val isAtLeastSv2: Boolean
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2
+
+    /**
      * API level 31+, Android 12.
      */
     @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)

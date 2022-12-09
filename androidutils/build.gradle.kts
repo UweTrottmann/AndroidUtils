@@ -10,11 +10,11 @@ version = "3.1.0-SNAPSHOT"
 
 android {
     namespace = "com.uwetrottmann.androidutils"
-    compileSdk = 31 // Android 12
+    compileSdk = 33 // Android 13
 
     defaultConfig {
         minSdk = 15
-        targetSdk = 31 // Android 12
+        targetSdk = 33 // Android 13
     }
 
     compileOptions {

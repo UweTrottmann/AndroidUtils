@@ -6,6 +6,7 @@ Release Notes
   `SecurityException` on some Android 11 devices due to a [system bug](https://android-review.googlesource.com/c/platform/frameworks/base/+/1758029).
   See method for details.
 - Update Kotlin to 1.7.21, when using the library need to compile with at least Kotlin 1.6.
+- Add `AndroidUtils.isAtLeastTiramisu`, `AndroidUtils.isAtLeastSv2`.
 
 ## 3.0.0
 _2022-01-21_
