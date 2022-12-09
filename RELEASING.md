@@ -28,21 +28,15 @@ signing.secretKeyRingFile=C:/Users/Uwe/AppData/Roaming/gnupg/secring.gpg
 3. Build and publish:
 
     ```
-    ./gradlew clean publishCentralPublicationToCentralRepository
+    ./gradlew clean publishCentralPublicationToSonatypeRepository
     ```
 
-4. Close and release staging repository:
+4. Commit and tag release. Change version back to snapshot, commit. Push to GitHub.
 
     ```
-    ./gradlew closeAndReleaseRepository
-    ```
-
-5. Commit and tag release. Change version back to snapshot, commit. Push to GitHub.
-
-    ```
-    git commit -am "Prepare release 1.2.3."
+    git commit -am "Prepare release 1.2.3"
     git tag v1.2.3
     // After changing version back to snapshots
-    git commit -am "Prepare next development version."
+    git commit -am "Start development of next version."
     git push origin main --tags
     ```
