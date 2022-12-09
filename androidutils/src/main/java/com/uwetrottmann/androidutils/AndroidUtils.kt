@@ -5,7 +5,6 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.NetworkInfo
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
@@ -185,21 +184,18 @@ object AndroidUtils {
         return context.applicationContext.getSystemService()
     }
 
-    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-    @Suppress("DEPRECATION")
-    private fun getActiveNetworkInfo(context: Context): NetworkInfo? {
-        val connectivityManager = getConnectivityManager(context) ?: return null
-        return connectivityManager.activeNetworkInfo
-    }
-
     /**
      * Uses Android 6 APIs to get active network capabilities.
+     *
+     * Note: due to a race condition this API can return a SecurityException for the lifetime of
+     * the app on Android 11 devices that did not [receive a patch](https://android-review.googlesource.com/c/platform/frameworks/base/+/1758029),
+     * see [reported issue](https://issuetracker.google.com/issues/175055271).
      *
      * https://developer.android.com/training/basics/network-ops/reading-network-state
      */
     @RequiresApi(Build.VERSION_CODES.M)
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
-    private fun getActiveNetworkCapabilities(context: Context): NetworkCapabilities? {
+    fun getActiveNetworkCapabilities(context: Context): NetworkCapabilities? {
         val connectivityManager = getConnectivityManager(context) ?: return null
         val activeNetwork = connectivityManager.activeNetwork ?: return null
         return connectivityManager.getNetworkCapabilities(activeNetwork)
@@ -208,29 +204,38 @@ object AndroidUtils {
     /**
      * Whether the active network has [NetworkCapabilities.NET_CAPABILITY_INTERNET],
      * or on Android 5.1 or lower if the active network connection is connected.
+     *
+     * Note: on Android 11 this also uses the old APIs, see [getActiveNetworkCapabilities].
      */
     @JvmStatic
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     fun isNetworkConnected(context: Context): Boolean {
-        if (isMarshmallowOrHigher) {
+        if (isMarshmallowOrHigher && Build.VERSION.SDK_INT != Build.VERSION_CODES.R) {
             val networkCapabilities = getActiveNetworkCapabilities(context) ?: return false
             return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
         } else {
-            val activeNetworkInfo = getActiveNetworkInfo(context)
+            val connectivityManager = getConnectivityManager(context) ?: return false
+            @Suppress("DEPRECATION")
+            val activeNetworkInfo = connectivityManager.activeNetworkInfo
             @Suppress("DEPRECATION")
             return activeNetworkInfo != null && activeNetworkInfo.isConnected
         }
     }
 
     /**
-     * Whether there is an active network connection and it is not metered,
-     * e.g. so large amounts of data may be transmitted.
+     * Whether the active network has [NetworkCapabilities.NET_CAPABILITY_INTERNET] and
+     * [NetworkCapabilities.NET_CAPABILITY_NOT_METERED], or on Android 5.1 or lower if the active
+     * network connection is connected and not metered.
+     *
+     * This can be used to determine if e.g. large amounts of data may be transmitted.
+     *
+     * Note: on Android 11 this also uses the old APIs, see [getActiveNetworkCapabilities].
      */
     @JvmStatic
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     fun isUnmeteredNetworkConnected(context: Context): Boolean {
-        if (isMarshmallowOrHigher) {
+        if (isMarshmallowOrHigher && Build.VERSION.SDK_INT != Build.VERSION_CODES.R) {
             val networkCapabilities = getActiveNetworkCapabilities(context) ?: return false
             return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                     && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
