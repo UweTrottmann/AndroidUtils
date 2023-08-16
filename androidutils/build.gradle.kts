@@ -10,11 +10,11 @@ version = "3.1.1-SNAPSHOT"
 
 android {
     namespace = "com.uwetrottmann.androidutils"
-    compileSdk = 33 // Android 13
+    compileSdk = 34 // Android 14
 
     defaultConfig {
         minSdk = 15
-        targetSdk = 33 // Android 13
+        targetSdk = 34 // Android 14
     }
 
     compileOptions {
@@ -39,13 +39,13 @@ android {
 
 dependencies {
     // https://developer.android.com/jetpack/androidx/releases/core
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     // https://developer.android.com/jetpack/androidx/releases/annotation
-    implementation("androidx.annotation:annotation:1.5.0")
+    implementation("androidx.annotation:annotation:1.6.0")
     // https://developer.android.com/jetpack/androidx/releases/loader
     implementation("androidx.loader:loader:1.1.0")
     // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 }
 
 // Because the components are created only during the afterEvaluate phase, you must

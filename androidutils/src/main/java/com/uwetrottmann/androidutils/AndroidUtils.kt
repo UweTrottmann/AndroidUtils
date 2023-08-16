@@ -28,6 +28,14 @@ import java.util.*
 object AndroidUtils {
 
     /**
+     * API level 34+, Android 14.
+     */
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+    @JvmStatic
+    val isAtLeastUpsideDownCake: Boolean
+        get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE
+
+    /**
      * API level 33+, Android 13.
      */
     @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU)
