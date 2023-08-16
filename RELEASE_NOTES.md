@@ -1,7 +1,8 @@
 Release Notes
 =============
 
-## next
+## 4.0.0
+_2023-08-16_
 
 - Add `AndroidUtils.isAtLeastUpsideDownCake`.
 - Remove `CheatSheet` (use `androidx.appcompat.widget.TooltipCompat` as a replacement).

@@ -13,10 +13,6 @@ Define publishing properties in `~/.gradle/gradle.properties`:
 # Replace with your values
 SONATYPE_NEXUS_USERNAME=
 SONATYPE_NEXUS_PASSWORD=
-
-signing.keyId=A3270D81
-signing.password=
-signing.secretKeyRingFile=C:/Users/Uwe/AppData/Roaming/gnupg/secring.gpg
 ```
 
 ## Creating a release
