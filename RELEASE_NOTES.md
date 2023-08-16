@@ -4,6 +4,7 @@ Release Notes
 ## next
 
 - Add `AndroidUtils.isAtLeastUpsideDownCake`.
+- Remove `CheatSheet` (use `androidx.appcompat.widget.TooltipCompat` as a replacement).
 
 ## 3.1.0
 _2022-12-09_
