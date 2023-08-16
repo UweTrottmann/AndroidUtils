@@ -10,7 +10,7 @@ plugins {
 
 nexusPublishing {
     packageGroup.set("com.uwetrottmann")
-    repositories {
+    this.repositories {
         sonatype {
             if (rootProject.hasProperty("SONATYPE_NEXUS_USERNAME")
                 && rootProject.hasProperty("SONATYPE_NEXUS_PASSWORD")) {
@@ -23,7 +23,7 @@ nexusPublishing {
 
 // reject preview releases for dependencyUpdates task
 fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
