@@ -1,7 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("com.android.library") version "8.1.0" apply false
-    kotlin("android") version "1.7.21" apply false // Can be compiled with at least Kotlin 1.6
+    // https://kotlinlang.org/docs/releases.html#release-details
+    // https://kotlinlang.org/docs/kotlin-evolution.html#evolving-the-binary-format
+    kotlin("android") version "1.8.22" apply false // This library can be compiled with at least a Kotlin 1.7 compiler.
     // https://github.com/ben-manes/gradle-versions-plugin/releases
     id("com.github.ben-manes.versions") version "0.47.0"
     // https://github.com/gradle-nexus/publish-plugin/releases

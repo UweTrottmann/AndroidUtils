@@ -5,6 +5,7 @@ Release Notes
 
 - Add `AndroidUtils.isAtLeastUpsideDownCake`.
 - Remove `CheatSheet` (use `androidx.appcompat.widget.TooltipCompat` as a replacement).
+- Update Kotlin to 1.8.22. When using this library need to compile with at least Kotlin 1.7.
 
 ## 3.1.0
 _2022-12-09_

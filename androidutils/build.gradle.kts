@@ -23,6 +23,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     lint {
         // for CI server (reports are not public)
         textReport = true
